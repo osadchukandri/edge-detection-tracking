@@ -109,3 +109,21 @@ Flag	Type	Default	Description
   }
 ]
 '''
+
+
+## 🛠️ Installation
+
+Designed to run on **Raspberry Pi 5** (tested on Pi 4) running Linux, but compatible with any standard PC/Mac/Linux machine.
+
+### 1. Repository & Environment Setup
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/edge-ai-tracker.git
+cd edge-ai-tracker
+
+# Create and activate a virtual environment
+python -m venv tracker_env
+source tracker_env/bin/activate
+
+# Install runtime dependencies on Raspberry Pi
+pip install ultralytics ncnn opencv-python psutil numpy
