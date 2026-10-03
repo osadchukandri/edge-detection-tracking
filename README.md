@@ -1,7 +1,7 @@
 # edge-detection-tracking
 Edge AI object tracking system optimized for Raspberry Pi. Combines YOLO and BoT-SORT with High-Res ROI-only inference to maximize FPS and detail. Features include trajectory &amp; motion vector visualization, sequential IDs, and comprehensive JSON analytics export.
 
-**Key Features**
+## Key Features
 - High-Res ROI-Only Inference: Instead of scaling down the entire frame, this pipeline crops the Region of Interest from the original high-resolution frame first. YOLO then processes only this dense data, drastically improving small object detection at edge speeds.
 - Optimized BoT-SORT Tracking: Custom BoT-SORT configuration tuned for CPU limits with custom anti-fragmentation logic to prevent ID switching and ghosting.
 - Motion Vectors & Trajectories: Visualize object paths with customizable history trails and stabilized motion direction vectors (calculated with a 7-frame buffer to eliminate micro-jitters).
