@@ -66,42 +66,58 @@ python tracker_ncnn_botsort_evo.py --cam 0 --duration 60 --draw-vector --draw-tr
 # COCO classes: 2=car, 7=truck
 python tracker_ncnn_botsort_evo.py -s http://10.0.0.1:8080/video -c 2 7
 ```
+## Exhaustive Command Line Arguments
 
-**Exhaustive Command Line Arguments**
 Below is the complete list of all supported flags and parameters.
-Input Sources
-Flag	Type	Default	Description
--v, --video	String	""	Path to the input video file. If not specified, the system defaults to ./test_video1.mp4 or camera.
---cam	Integer	-1	USB Camera index (e.g., --cam 0 for the default webcam).
--s, --stream	String	""	HTTP/MJPEG network stream URL (e.g., http://10.0.0.1:8080/video).
-Video Processing Controls
-Flag	Type	Default	Description
---start-frame	Integer	0	Frame number to start processing at. Useful for skipping video intros (Video files only).
---end-frame	Integer	0	Frame number to stop processing at. The script will automatically terminate and save outputs (Video files only).
---duration	Integer	0	Maximum recording/processing duration in seconds. Useful for automated camera capture (0 = infinite).
---skip	Integer	2	Frame skip multiplier for performance. 2 means process every 2nd frame (half FPS). 1 means process all frames.
-Model & Neural Network Settings
-Flag	Type	Default	Description
--m, --model	String	./yolo26n_ncnn_model	Path to the directory containing the exported NCNN model.
---imgsz	Integer	640	Internal YOLO inference size. The longest side of the ROI crop will be scaled to this size.
---conf	Float	0.20	Minimum confidence threshold for object detection. Detections below this are ignored.
---iou	Float	0.50	Intersection Over Union (IoU) threshold for Non-Maximum Suppression (NMS). Controls overlapping box removal.
--c, --classes	Int List	None	Filter specific COCO class IDs (e.g., -c 2 3 7 for cars, motorcycles, trucks).
---classes-all	Flag	False	Forces the tracker to detect and track all classes the model was trained on, overriding -c.
-Region of Interest (ROI)
-Flag	Type	Default	Description
---roi-input	Flag	False	Pauses execution at launch and prompts the user to interactively type 4 ROI coordinates in the console.
---roi	String x4	None	Hardcodes the 4 ROI polygon points in relative X,Y coordinates (0.0 to 1.0). Example: --roi 0.5,0.2 0.8,0.2 0.9,0.9 0.1,0.9.
-Visualization & Outputs
-Flag	Type	Default	Description
--o, --output	String	./output_botsort_evo.mp4	File path for the resulting annotated video.
---json-out	String	./tracks_summary.json	File path to save the detailed JSON analytics report.
---min-hits	Integer	2	Number of consecutive frames an object must be detected before it is assigned an ID and drawn (Ghost/Flicker filter).
---draw-trail	Integer	0	Enables trajectory tails. The integer specifies the length of the tail in frames (e.g., 30). 0 disables it.
---draw-vector	Flag	False	Draws a red motion direction arrow originating from the object's center, stabilized over a 7-frame buffer.
 
-**Output example**
-'''bash
+### Input Sources
+
+| Flag | Type | Default | Description |
+|---|---|---|---|
+| `-v`, `--video` | String | `""` | Path to the input video file. If not specified, the system defaults to `./test_video1.mp4` or camera. |
+| `--cam` | Integer | `-1` | USB Camera index (e.g., `--cam 0` for the default webcam). |
+| `-s`, `--stream` | String | `""` | HTTP/MJPEG network stream URL (e.g., `http://10.0.0.1:8080/video`). |
+
+### Video Processing Controls
+
+| Flag | Type | Default | Description |
+|---|---|---|---|
+| `--start-frame` | Integer | `0` | Frame number to start processing at. Useful for skipping video intros (Video files only). |
+| `--end-frame` | Integer | `0` | Frame number to stop processing at. The script will automatically terminate and save outputs (Video files only). |
+| `--duration` | Integer | `0` | Maximum recording/processing duration in seconds. Useful for automated camera capture (0 = infinite). |
+| `--skip` | Integer | `2` | Frame skip multiplier for performance. 2 means process every 2nd frame (half FPS). 1 means process all frames. |
+
+### Model & Neural Network Settings
+
+| Flag | Type | Default | Description |
+|---|---|---|---|
+| `-m`, `--model` | String | `./yolo26n_ncnn_model` | Path to the directory containing the exported NCNN model. |
+| `--imgsz` | Integer | `640` | Internal YOLO inference size. The longest side of the ROI crop will be scaled to this size. |
+| `--conf` | Float | `0.20` | Minimum confidence threshold for object detection. Detections below this are ignored. |
+| `--iou` | Float | `0.50` | Intersection Over Union (IoU) threshold for Non-Maximum Suppression (NMS). Controls overlapping box removal. |
+| `-c`, `--classes` | Int List | `None` | Filter specific COCO class IDs (e.g., `-c 2 3 7` for cars, motorcycles, trucks). |
+| `--classes-all` | Flag | `False` | Forces the tracker to detect and track all classes the model was trained on, overriding `-c`. |
+
+### Region of Interest (ROI)
+
+| Flag | Type | Default | Description |
+|---|---|---|---|
+| `--roi-input` | Flag | `False` | Pauses execution at launch and prompts the user to interactively type 4 ROI coordinates in the console. |
+| `--roi` | String x4 | `None` | Hardcodes the 4 ROI polygon points in relative X,Y coordinates (0.0 to 1.0). Example: `--roi 0.5,0.2 0.8,0.2 0.9,0.9 0.1,0.9`. |
+
+### Visualization & Outputs
+
+| Flag | Type | Default | Description |
+|---|---|---|---|
+| `-o`, `--output` | String | `./output_botsort_evo.mp4` | File path for the resulting annotated video. |
+| `--json-out` | String | `./tracks_summary.json` | File path to save the detailed JSON analytics report. |
+| `--min-hits` | Integer | `2` | Number of consecutive frames an object must be detected before it is assigned an ID and drawn (Ghost/Flicker filter). |
+| `--draw-trail` | Integer | `0` | Enables trajectory tails. The integer specifies the length of the tail in frames (e.g., 30). 0 disables it. |
+| `--draw-vector` | Flag | `False` | Draws a red motion direction arrow originating from the object's center, stabilized over a 7-frame buffer. |
+
+## Output Example
+
+```json
 [
   {
     "track_id": 1,
@@ -117,5 +133,5 @@ Flag	Type	Default	Description
     ]
   }
 ]
-'''
+```
 
