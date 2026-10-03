@@ -134,4 +134,26 @@ Below is the complete list of all supported flags and parameters.
   }
 ]
 ```
+## Performance Benchmarks (Raspberry Pi 4)
 
+Below are the indicative real-world results running the quantized `yolo26n` NCNN model on a **Raspberry Pi 4**, utilizing the High-Res ROI-only inference pipeline. 
+
+```text
+============================================================
+  EXECUTION SUMMARY (BoT-SORT EVO v2 — ROI-Only Inference)
+============================================================
+  Source             : Video: traffic.mp4
+  Model              : ./yolo26n_ncnn_model
+  ROI area           : 704x648 px
+  Processed frames   : 401
+  Unique objects     : 12
+  Average FPS        : 2.68 fps
+  Latency p50        : 363.3 ms
+  Latency p95        : 369.7 ms
+  CPU avg/peak       : 86% / 88%
+  RAM avg/peak       : 621 MB / 627 MB
+  Temp avg/peak      : 69.6°C / 77.4°C
+============================================================
+```
+
+*Note: The script was executed strictly on the CPU. The FPS can be dynamically scaled higher by utilizing the `--skip` argument (e.g., `--skip 3`). Additionally, using an active cooling fan is highly recommended, as the Raspberry Pi approaches thermal throttling thresholds near 80°C.*
