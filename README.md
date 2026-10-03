@@ -12,7 +12,7 @@ Edge AI object tracking system optimized for Raspberry Pi. Combines YOLO and BoT
 **Installation**
 Designed to run on Raspberry Pi 5 (tested on Pi 4) running Linux, but compatible with any standard PC/Mac/Linux machine.
 1. Repository & Environment Setup
-'''
+'''bash
 # Clone the repository
 git clone https://github.com/yourusername/edge-ai-tracker.git
 cd edge-ai-tracker
@@ -27,7 +27,7 @@ pip install ultralytics ncnn opencv-python psutil numpy
 To achieve real-time performance on a Raspberry Pi CPU, you must use an NCNN quantized model. It is recommended to perform this export on a powerful PC/Mac, and then transfer the exported model to your Raspberry Pi.
 
 On your PC/Mac:
-'''
+'''bash
 # Install ultralytics on your PC
 pip install ultralytics
 # Export a YOLO model to NCNN format with INT8 quantization
@@ -37,7 +37,7 @@ yolo export model=yolo26n.pt format=ncnn int8=True data=coco.yaml
 This will generate a folder named yolo26n_ncnn_model.
 
 Transfer the model to Raspberry Pi:
-'''
+'''bash
 # Copy the exported model directory to your Raspberry Pi using SCP
 scp -r ./yolo26n_ncnn_model pi_username@<RPI_IP>:/path/to/edge-ai-tracker/
 '''
@@ -45,7 +45,7 @@ scp -r ./yolo26n_ncnn_model pi_username@<RPI_IP>:/path/to/edge-ai-tracker/
 **Usage**
 Run the tracker using the command line.
 1. Process a video file with an interactive ROI selector:
-'''
+'''bash
 python tracker_ncnn_botsort_evo.py -v traffic.mp4 --roi-input
 '''
 2. Run on a USB Webcam with a 60-second limit, tracking trails, and motion vectors:
@@ -92,7 +92,7 @@ Flag	Type	Default	Description
 --draw-vector	Flag	False	Draws a red motion direction arrow originating from the object's center, stabilized over a 7-frame buffer.
 
 **Output example**
-'''
+'''bash
 [
   {
     "track_id": 1,
@@ -110,20 +110,3 @@ Flag	Type	Default	Description
 ]
 '''
 
-
-## 🛠️ Installation
-
-Designed to run on **Raspberry Pi 5** (tested on Pi 4) running Linux, but compatible with any standard PC/Mac/Linux machine.
-
-### 1. Repository & Environment Setup
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/edge-ai-tracker.git
-cd edge-ai-tracker
-
-# Create and activate a virtual environment
-python -m venv tracker_env
-source tracker_env/bin/activate
-
-# Install runtime dependencies on Raspberry Pi
-pip install ultralytics ncnn opencv-python psutil numpy
