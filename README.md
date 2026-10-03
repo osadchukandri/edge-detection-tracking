@@ -9,54 +9,63 @@ Edge AI object tracking system optimized for Raspberry Pi. Combines YOLO and BoT
 - Hardware Telemetry: Real-time on-screen display of CPU usage, RAM footprint, temperature, and latency.
 - Versatile Inputs: Process local video files, USB webcams (--cam 0), or network MJPEG streams (--stream).
 
-**Installation**
+## Installation
+
 Designed to run on Raspberry Pi 5 (tested on Pi 4) running Linux, but compatible with any standard PC/Mac/Linux machine.
-1. Repository & Environment Setup
-'''bash
+
+### 1. Repository & Environment Setup
+```bash
 # Clone the repository
 git clone https://github.com/yourusername/edge-ai-tracker.git
 cd edge-ai-tracker
+
 # Create and activate a virtual environment
 python -m venv tracker_env
 source tracker_env/bin/activate
+
 # Install runtime dependencies on Raspberry Pi
 pip install ultralytics ncnn opencv-python psutil numpy
-'''
+```
 
-2. Model Quantization & Export (NCNN INT8)
+### 2. Model Quantization & Export (NCNN INT8)
 To achieve real-time performance on a Raspberry Pi CPU, you must use an NCNN quantized model. It is recommended to perform this export on a powerful PC/Mac, and then transfer the exported model to your Raspberry Pi.
 
-On your PC/Mac:
-'''bash
+**On your PC/Mac:**
+```bash
 # Install ultralytics on your PC
 pip install ultralytics
+
 # Export a YOLO model to NCNN format with INT8 quantization
 # Note: INT8 quantization requires a dataset for calibration (e.g., data=coco.yaml)
 yolo export model=yolo26n.pt format=ncnn int8=True data=coco.yaml
-'''
-This will generate a folder named yolo26n_ncnn_model.
+```
+This will generate a folder named `yolo26n_ncnn_model`.
 
-Transfer the model to Raspberry Pi:
-'''bash
+**Transfer the model to Raspberry Pi:**
+```bash
 # Copy the exported model directory to your Raspberry Pi using SCP
 scp -r ./yolo26n_ncnn_model pi_username@<RPI_IP>:/path/to/edge-ai-tracker/
-'''
+```
 
-**Usage**
+## Usage
+
 Run the tracker using the command line.
-1. Process a video file with an interactive ROI selector:
-'''bash
+
+**1. Process a video file with an interactive ROI selector:**
+```bash
 python tracker_ncnn_botsort_evo.py -v traffic.mp4 --roi-input
-'''
-2. Run on a USB Webcam with a 60-second limit, tracking trails, and motion vectors:
-'''
+```
+
+**2. Run on a USB Webcam with a 60-second limit, tracking trails, and motion vectors:**
+```bash
 python tracker_ncnn_botsort_evo.py --cam 0 --duration 60 --draw-vector --draw-trail 30
-'''
-3. Process an IP Camera / MJPEG Stream (& filtering only cars and trucks):
-'''
+```
+
+**3. Process an IP Camera / MJPEG Stream (& filtering only cars and trucks):**
+```bash
 # COCO classes: 2=car, 7=truck
 python tracker_ncnn_botsort_evo.py -s http://10.0.0.1:8080/video -c 2 7
-'''
+```
 
 **Exhaustive Command Line Arguments**
 Below is the complete list of all supported flags and parameters.
