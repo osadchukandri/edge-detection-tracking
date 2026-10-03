@@ -16,7 +16,7 @@ Designed to run on Raspberry Pi 5 (tested on Pi 4) running Linux, but compatible
 ### 1. Repository & Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/edge-ai-tracker.git
+git clone https://github.com/osadcukandri/edge-detection-tracking.git
 cd edge-ai-tracker
 
 # Create and activate a virtual environment
@@ -53,18 +53,18 @@ Run the tracker using the command line.
 
 **1. Process a video file with an interactive ROI selector:**
 ```bash
-python tracker_ncnn_botsort_evo.py -v traffic.mp4 --roi-input
+python tracker_yolo_ncnn_botsort_final.py -v traffic.mp4 --roi-input
 ```
 
 **2. Run on a USB Webcam with a 60-second limit, tracking trails, and motion vectors:**
 ```bash
-python tracker_ncnn_botsort_evo.py --cam 0 --duration 60 --draw-vector --draw-trail 30
+python tracker_yolo_ncnn_botsort_final.py --cam 0 --duration 60 --draw-vector --draw-trail 30
 ```
 
 **3. Process an IP Camera / MJPEG Stream (& filtering only cars and trucks):**
 ```bash
 # COCO classes: 2=car, 7=truck
-python tracker_ncnn_botsort_evo.py -s http://10.0.0.1:8080/video -c 2 7
+python tracker_yolo_ncnn_botsort_final.py -s http://10.0.0.1:8080/video -c 2 7
 ```
 ## Exhaustive Command Line Arguments
 
