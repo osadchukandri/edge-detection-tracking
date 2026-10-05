@@ -16,7 +16,7 @@ Designed to run on Raspberry Pi 5 (tested on Pi 4) running Linux, but compatible
 ### 1. Repository & Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/osadcukandri/edge-detection-tracking.git
+git clone https://github.com/osadhcukandri/edge-detection-tracking.git
 cd edge-ai-tracker
 
 # Create and activate a virtual environment
